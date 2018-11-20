@@ -810,7 +810,10 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//EDIT (Speed change to 10)
+	fire_blaster (ent, start, forward, damage, 10, effect, hyper);
+	//DEF: fire_blaster(ent, start, forward, damage, 1000, effect, hyper);
+
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -825,20 +828,25 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 }
 
 
-void Weapon_Blaster_Fire (edict_t *ent)
+void Weapon_Blaster_Fire (edict_t *ent)		//+ ent = player that is firing
 {
 	int		damage;
 
 	if (deathmatch->value)
 		damage = 15;
 	else
+		//EDIT: damage set to 5000
 		damage = 10;
+		//DEF: damage = 5000;
 	Blaster_Fire (ent, vec3_origin, damage, false, EF_BLASTER);
 	ent->client->ps.gunframe++;
 }
 
 void Weapon_Blaster (edict_t *ent)
 {
+
+	//This may be connected to fire rate, but I'm not sure at all...
+
 	static int	pause_frames[]	= {19, 32, 0};
 	static int	fire_frames[]	= {5, 0};
 
