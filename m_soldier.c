@@ -1130,10 +1130,23 @@ void soldier_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 	if (self->health <= self->gib_health)
 	{
 		gi.sound (self, CHAN_VOICE, gi.soundindex ("misc/udeath.wav"), 1, ATTN_NORM, 0);
-		for (n= 0; n < 3; n++)
+		
+		//OMAR DEFAULT:		for (n= 0; n < 3; n++)
+
+		for (n= 0; n < 20; n++)
 			ThrowGib (self, "models/objects/gibs/sm_meat/tris.md2", damage, GIB_ORGANIC);
 		ThrowGib (self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
 		ThrowHead (self, "models/objects/gibs/head2/tris.md2", damage, GIB_ORGANIC);
+
+		//OMAR START
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/head2/tris.md2", damage, GIB_ORGANIC);
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/head2/tris.md2", damage, GIB_ORGANIC);
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/head2/tris.md2", damage, GIB_ORGANIC);
+		//OMAR END
+
 		self->deadflag = DEAD_DEAD;
 		return;
 	}

@@ -156,7 +156,8 @@ void ThrowGib (edict_t *self, char *gibname, int damage, int type)
 	gib->avelocity[2] = random()*600;
 
 	gib->think = G_FreeEdict;
-	gib->nextthink = level.time + 10 + random()*10;
+	//OMAR DEFAULT:		gib->nextthink = level.time + 10 + random()*10;
+	gib->nextthink = level.time + 2.8 + random()*1;
 
 	gi.linkentity (gib);
 }
@@ -201,7 +202,8 @@ void ThrowHead (edict_t *self, char *gibname, int damage, int type)
 	self->avelocity[YAW] = crandom()*600;
 
 	self->think = G_FreeEdict;
-	self->nextthink = level.time + 10 + random()*10;
+	//OMAR DEFAULT:		self->nextthink = level.time + 10 + random()*10;
+	self->nextthink = level.time + 2.8 + random()*1;
 
 	gi.linkentity (self);
 }
