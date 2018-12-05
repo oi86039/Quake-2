@@ -1063,6 +1063,10 @@ struct edict_s
 	edict_t		*mynoise;		// can go in client only
 	edict_t		*mynoise2;
 
+	//OMAR START - credit to John Rittenhouse
+	int ClassSpeed;
+	//OMAR END
+
 	int			noise_index;
 	int			noise_index2;
 	float		volume;

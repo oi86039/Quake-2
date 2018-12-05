@@ -810,7 +810,8 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//DEFAULT	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	fire_blaster (ent, start, forward, damage, 3000, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -842,9 +843,17 @@ void Weapon_Blaster (edict_t *ent)
 	static int	pause_frames[]	= {19, 32, 0};
 	static int	fire_frames[]	= {5, 0};
 
-	Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
-}
+	/*
+    Activate - frames 0 to 4 : when you raise the weapon up into view
+    Fire - frames 5 to 8 : when you make giblets out of Strogg guys
+    Idle - frames 9 to 52 : when you are just holding the weapon, fidgeting
+    Deactivate - frames 53 to 55 : when you put the weapon back down 
+	*/
 
+	//DEFAULT: Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+	Weapon_Generic(ent, 4, 5, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+
+}
 
 void Weapon_HyperBlaster_Fire (edict_t *ent)
 {
