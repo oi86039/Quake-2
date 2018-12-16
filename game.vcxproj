@@ -82,8 +82,8 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\baseq2\</OutDir>
-    <IntDir>.\release\</IntDir>
+    <OutDir>..\..\DOOM</OutDir>
+    <IntDir>..\..\DOOM</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -251,7 +251,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\release\gamex86.dll</OutputFile>
+      <OutputFile>..\..\DOOM\gamex86.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ModuleDefinitionFile>.\game.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>.\..\release/gamex86.pdb</ProgramDatabaseFile>
@@ -319,6 +319,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
+    <ClInclude Include="g_highln.h" />
     <ClInclude Include="g_local.h" />
     <ClInclude Include="m_actor.h" />
     <ClInclude Include="m_berserk.h" />

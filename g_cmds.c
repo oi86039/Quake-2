@@ -398,7 +398,22 @@ void Cmd_Use_f(edict_t *ent)
 		gi.cprintf(ent, PRINT_HIGH, "Out of item: %s\n", s);
 		return;
 	}
+	//added 1-13-98 by Dan Eisner
+		//to allow multiple weapons from one keypress
 
+	else if (!Q_stricmp(s, ent->client->pers.weapon->pickup_name))
+	{
+		if (!Q_stricmp(s, "Blaster")) {
+			it = FindItem("Sword");
+
+		}
+		else if (!Q_stricmp(s, "Shotgun")) {
+			it = FindItem("SuperShotgun");
+		}
+
+	}
+
+	//end added portion
 	it->use(ent, it);
 }
 
@@ -759,7 +774,73 @@ void Cmd_Wave_f(edict_t *ent)
 		break;
 	}
 }
+//OMAR START - credit to Bruce Knepper for base code
+/*
+=================
+Cmd_FireMode_f
+MUCE: new function for adjusting firing mode
+=================
+*/
+void Cmd_FireMode_f(edict_t *ent) //This will be used for weapon mods.
+{
+	int i; //Number to track firemode
+	i = ent->client->pers.fire_mode; //Get current firemode from player
+	switch (i) { //Check firemode and alternate between the two firing modes
+	//Switch to burst (mod)
+	case 0:
+		ent->client->pers.fire_mode = 1;
+		gi.cprintf(ent, PRINT_HIGH, "Mod ACTIVE\n");
+		break;
+		//Switch to auto (default)
+	case 1:
+	default:
+		ent->client->burstfire_count = 0;
+		ent->client->pers.fire_mode = 0;
+		gi.cprintf(ent, PRINT_HIGH, "Mod INACTIVE\n");
+		break;
+	}
+}
 
+void Cmd_Berserk_f(edict_t *ent) //This will be used for beserk mode.
+{
+	int i; //Number to track firemode
+	i = ent->client->pers.berserk; //Get current firemode from player
+	switch (i) { 
+	//Switch to burst (mod)
+	case 0:
+
+		ent->client->pers.berserk = 1;
+		gi.cprintf(ent, PRINT_HIGH, "BERSERK ON\n");
+		break;
+		//Switch to auto (default)
+	case 1:
+	default:
+		ent->client->pers.berserk = 0;
+		gi.cprintf(ent, PRINT_HIGH, "BERSERK OFF\n");
+		break;
+	}
+}
+
+void Cmd_Jump_f(edict_t *ent) //This will be used for weapon mods.
+{
+	if (ent->groundentity || ent->client->pers.doubleJump == 1) { //Only Jump if on ground or with doubleJump
+		if (ent->groundentity)
+			ent->client->pers.doubleJump = 0; //Reset doublejump if on ground
+
+		ent->client->pers.jump = 1; //Jump command
+
+		if (ent->client->pers.doubleJump == 0) {
+			ent->client->pers.doubleJump = 1; //Enable Double Jump
+			gi.cprintf(ent, PRINT_HIGH, "JUMP\n");
+		}
+		else {
+			ent->client->pers.doubleJump = 0; //Disable Double Jump
+			gi.cprintf(ent, PRINT_HIGH, "DOUBLE JUMP\n");
+
+		}
+	}
+}
+//OMAR END
 /*
 ==================
 Cmd_Say_f
@@ -968,6 +1049,16 @@ void ClientCommand(edict_t *ent)
 		Cmd_Wave_f(ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
+
+	//OMAR START - credit to Bruce Knepper for base code
+	// MUCE:  added to call function for changeing fireing modes
+	else if (Q_stricmp(cmd, "firemode") == 0)
+		Cmd_FireMode_f(ent);
+	else if (Q_stricmp(cmd, "berserk") == 0)
+		Cmd_Berserk_f(ent);
+	else if (Q_stricmp(cmd, "jump") == 0)
+		Cmd_Jump_f(ent);
+	//OMAR END
 
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f(ent, false, true);

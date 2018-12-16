@@ -627,33 +627,35 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 #endif
 
 char *single_statusbar = 
-"yb	-24 "
+"yb	-50 "
 
 // health
-"xv	0 "
+"xv	-225 "
 "hnum "
-"xv	50 "
+"xv	-275 "
 "pic 0 "
 
 // ammo
 "if 2 "
-"	xv	100 "
+"	xv	525 "
 "	anum "
-"	xv	150 "
+"	xv	500 "
 "	pic 2 "
 "endif "
 
 // armor
 "if 4 "
-"	xv	200 "
+"	xv	-225 "
+"	yv	400 "
 "	rnum "
-"	xv	250 "
+"	xv	-275 "
+"	yv	400 "
 "	pic 4 "
 "endif "
 
 // selected item
 "if 6 "
-"	xv	296 "
+"	xv	275 "
 "	pic 6 "
 "endif "
 
